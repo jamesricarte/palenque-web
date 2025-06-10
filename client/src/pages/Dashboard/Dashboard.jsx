@@ -1,22 +1,31 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  const { logout } = useAuth();
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* Header */}
       <header className="bg-white shadow p-4 flex justify-between items-center">
-        <h1 className="text-xl font-semibold text-orange-500">PalenqueMart Dashboard</h1>
-         <Link to="/login/">
-        <button className="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600">Logout</button>
-        </Link>
+        <h1 className="text-xl font-semibold text-orange-500">
+          PalenqueMart Dashboard
+        </h1>
+        <button
+          onClick={logout}
+          className="bg-orange-500 text-white px-4 py-1 rounded hover:bg-orange-600 cursor-pointer"
+        >
+          Logout
+        </button>
       </header>
 
       {/* Main content */}
       <main className="p-6 space-y-6">
         <h2 className="text-2xl font-bold">Welcome back, Vendor!</h2>
-        
+
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white shadow p-4 rounded">
@@ -35,8 +44,12 @@ const Dashboard = () => {
 
         {/* Placeholder for more */}
         <div className="bg-white shadow p-6 rounded mt-4">
-          <h3 className="text-lg font-semibold mb-2 text-orange-500">Announcements</h3>
-          <p>Here you can show important updates or messages for your vendors.</p>
+          <h3 className="text-lg font-semibold mb-2 text-orange-500">
+            Announcements
+          </h3>
+          <p>
+            Here you can show important updates or messages for your vendors.
+          </p>
         </div>
       </main>
 
@@ -46,6 +59,6 @@ const Dashboard = () => {
       </footer>
     </div>
   );
-}
+};
 
 export default Dashboard;
