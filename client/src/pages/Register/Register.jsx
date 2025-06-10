@@ -6,6 +6,7 @@ import facebook from '../../assets/facebook.png';
 import google_play from '../../assets/google_play.png';
 import google from '../../assets/google.png';
 import app_store from '../../assets/app_store.png';
+import vendor_stall from '../../assets/vendor-stall-icon.png';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
@@ -16,7 +17,7 @@ const Register = () => {
     <div className="min-h-screen flex flex-col font-sans">
       {/* Header */}
       <header className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-        <img src={logo} alt="PalenqueMart Logo" className="h-10" />
+        <img src={logo} alt="PalenqueMart Logo" className="h-8 px-4" />
         <a href="#" className="text-orange-500 font-medium">Help Centre</a>
       </header>
 
@@ -27,6 +28,17 @@ const Register = () => {
           <div
             className="lg:w-2/3 w-full h-[400px] lg:h-auto bg-cover bg-center relative"
             style={{ backgroundImage: `url(${bgImage})` }}>
+              <div className="w-full h-full bg-opacity-60 flex flex-col justify-center items-center text-white px-6">
+              <div className="text-center">
+                <img src={vendor_stall} alt="Vendor Icon" className="mx-auto mb-4 h-75" />
+                <p className="text-lg lg:text-2xl font-medium mb-4">
+                  Bring your public market stall online and access thousands of shoppers looking for fresh, local produce.
+                </p>
+                <button className="bg-white text-orange-600 font-semibold px-6 py-2 rounded-full hover:bg-gray-100 transition">
+                  Join as a Vendor
+                </button>
+              </div>
+            </div> 
           </div>
 
           {/* Login Form */}
