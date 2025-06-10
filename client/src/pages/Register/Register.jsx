@@ -18,7 +18,7 @@ const Register = () => {
       {/* Header */}
       <header className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
         <img src={logo} alt="PalenqueMart Logo" className="h-8 px-4" />
-        <a href="#" className="text-orange-500 font-medium">Help Centre</a>
+        <a href="#" className="text-orange-500 font-medium px-10">Help Centre</a>
       </header>
 
       {/* Hero + Login Section */}
@@ -105,7 +105,7 @@ const Register = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white px-6 py-6 border-t border-gray-200 text-sm">
+      <footer className="bg-white px-12 py-6 border-t border-gray-200 text-sm">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div>
             <h4 className="text-lg font-bold text-orange-500 mb-2">Customer Care</h4>
@@ -138,27 +138,26 @@ const Register = () => {
             </div>
           </div>
 
-          <div>
+          <div className="mr-4">
             <h4 className="text-lg font-bold text-orange-500 mb-2">Join Our Newsletter</h4>
               <i className="font-semibold"><p className="mb-2 text-gray-700">Enter your email to keep updated in our promotions!</p></i>            <div className="flex">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 border-transparent px-2 py-2 rounded-l bg-gray-100"
+                className="flex-1 border-transparent px-2 py-2 rounded-l bg-gray-100 mt-2"
               />
-              <button className="bg-orange-500 text-white px-4 py-1 rounded-r">Subscribe</button>
+              <button className="bg-orange-500 text-white px-4 py-1 rounded-r mt-2 ">Subscribe</button>
             </div>
           </div>
         </div>
-
-        <div className="flex justify-between mt-6 text-xs text-gray-500 border-t pt-4">
+      </footer>
+      <div className="flex justify-between mt-6 text-s text-white border-t pt-4 bg-black px-12 py-5">
           <p>© 2025 | PalenqueMart | All Rights Reserved.</p>
-          <div className="space-x-4">
+          <div className="space-x-6 px-6">
             <a href="#">Term of Service</a>
             <a href="#">Privacy Policy</a>
           </div>
         </div>
-      </footer>
     </div>
   );
 }
