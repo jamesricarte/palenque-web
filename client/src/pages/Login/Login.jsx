@@ -10,6 +10,7 @@ import vendor_stall from "../../assets/vendor-stall-icon.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
+import { useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -31,6 +32,8 @@ const Login = () => {
     messageType: "",
   });
 
+  const [loginTrial, setLoginTrial] = useState(5);
+
   const handleFormData = (e) => {
     const { name, value } = e.target;
     setLoginFormData({ ...loginFormData, [name]: value });
@@ -38,6 +41,10 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (loginTrial < 0) {
+      return;
+    }
 
     try {
       const response = await axios.post(`${API_URL}/api/login`, loginFormData);
@@ -50,6 +57,7 @@ const Login = () => {
         messageType: "success",
       });
     } catch (error) {
+      setLoginTrial((prev) => prev - 1);
       setMessage({
         isMessageAvailable: true,
         message: error.response.data.message,
@@ -57,6 +65,34 @@ const Login = () => {
       });
     }
   };
+
+  useEffect(() => {
+    console.log(loginTrial);
+    if (loginTrial <= 2 && loginTrial > 0) {
+      alert(`You have ${loginTrial} more attempts left`);
+    }
+
+    if (loginTrial <= 0) {
+      setMessage({
+        isMessageAvailable: true,
+        message: "You have been locked!",
+        messageType: "error",
+      });
+
+      // Automatically reset loginTrial after 5 seconds
+      const timeout = setTimeout(() => {
+        setLoginTrial(5);
+        setMessage({
+          isMessageAvailable: true,
+          message: "You can try logging in again.",
+          messageType: "info",
+        });
+      }, 5000);
+
+      return () => clearTimeout(timeout); // Cleanup in case component unmounts
+    }
+  }, [loginTrial]);
+
   return (
     <div className="min-h-screen flex flex-col font-sans">
       {/* Header */}
@@ -108,7 +144,7 @@ const Login = () => {
               </label>
               <input
                 id="email"
-                type="email"
+                type="text"
                 name="email"
                 placeholder=""
                 className="w-full px-3 py-2 border-transparent rounded mb-3 bg-gray-100"
@@ -157,7 +193,9 @@ const Login = () => {
 
               <button
                 type="submit"
-                className="w-full bg-orange-500 text-white py-2 rounded mb-3 font-semibold cursor-pointer"
+                className={`w-full  text-white py-2 rounded mb-3 font-semibold cursor-pointer ${
+                  loginTrial <= 0 ? "bg-gray-200" : "bg-orange-500"
+                }`}
               >
                 Login
               </button>

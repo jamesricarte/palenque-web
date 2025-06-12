@@ -1,11 +1,34 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-
   const { logout } = useAuth();
+
+  const timerRef = useRef(null);
+  const events = ["mousemove", "keydown", "click", "scroll"];
+
+  const resetTimer = () => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      alert("You're idle. Logging out...");
+      logout();
+    }, 5000);
+  };
+
+  useEffect(() => {
+    events.forEach((event) => window.addEventListener(event, resetTimer));
+
+    resetTimer();
+
+    return () => {
+      events.forEach((event) => window.removeEventListener(event, resetTimer));
+      clearTimeout(timerRef.current);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
