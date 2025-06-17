@@ -46,6 +46,41 @@ const Login = () => {
       return;
     }
 
+    if (
+      Object.values(loginFormData).includes("") ||
+      Object.values(loginFormData).includes(null) ||
+      Object.values(loginFormData).includes(undefined)
+    ) {
+      setMessage({
+        isMessageAvailable: true,
+        message: "All fields required!",
+        messageType: "error",
+      });
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginFormData.email)) {
+      setMessage({
+        isMessageAvailable: true,
+        message: "The format for email is incorrect!",
+        messageType: "error",
+      });
+      return;
+    }
+
+    if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        loginFormData.password
+      )
+    ) {
+      setMessage({
+        isMessageAvailable: true,
+        message: "The requirements for password does not meet!",
+        messageType: "error",
+      });
+      return;
+    }
+
     try {
       const response = await axios.post(`${API_URL}/api/login`, loginFormData);
 
@@ -144,12 +179,13 @@ const Login = () => {
               </label>
               <input
                 id="email"
-                type="text"
+                type="email"
                 name="email"
                 placeholder=""
                 className="w-full px-3 py-2 border-transparent rounded mb-3 bg-gray-100"
                 value={loginFormData.email}
                 onChange={handleFormData}
+                required={false}
               />
 
               <label htmlFor="password" className="text-m">
@@ -164,6 +200,7 @@ const Login = () => {
                   className="w-full px-3 py-2 border-transparent rounded bg-gray-100 pr-10"
                   value={loginFormData.password}
                   onChange={handleFormData}
+                  required={false}
                 />
                 <div
                   className="absolute right-3 top-2.5 cursor-pointer text-gray-500"

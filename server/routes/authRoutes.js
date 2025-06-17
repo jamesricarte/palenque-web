@@ -30,6 +30,12 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ message: "All fields are required!" });
   }
 
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
+    return res
+      .status(400)
+      .json({ message: "The format for email is incorrect!" });
+  }
+
   db.query(
     `SELECT * FROM users WHERE email = ?`,
     [user.email],

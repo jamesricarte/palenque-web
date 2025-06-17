@@ -6,7 +6,7 @@ import { useRef } from "react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const timerRef = useRef(null);
   const events = ["mousemove", "keydown", "click", "scroll"];
@@ -28,6 +28,10 @@ const Dashboard = () => {
       events.forEach((event) => window.removeEventListener(event, resetTimer));
       clearTimeout(timerRef.current);
     };
+  }, []);
+
+  useEffect(() => {
+    console.log(user);
   }, []);
 
   return (

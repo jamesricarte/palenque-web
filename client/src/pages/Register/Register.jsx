@@ -38,6 +38,29 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    if (registerFormData.password !== registerFormData.confirmPassword) {
+      setMessage({
+        isMessageAvailable: true,
+        message: "Your confirmation password does not match!",
+        messageType: "error",
+      });
+      return;
+    }
+
+    if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        registerFormData.password
+      )
+    ) {
+      setMessage({
+        isMessageAvailable: true,
+        message:
+          "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.",
+        messageType: "error",
+      });
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${API_URL}/api/register`,
